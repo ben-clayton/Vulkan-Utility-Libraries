@@ -32,6 +32,8 @@ Any layer project including this library will provide these three methods to con
 
 Configuring layers means multiple tasks: Enabling layers; Ordering layers; Configuring the layers capabilities. These three aspects are described with each method to configure layers.
 
+**Guideline: Settings which are unknown by the layer will be ignored independently of the method. It's the reponsability of the layer developer to ensure backward compatibility with previous versions of the layer. This is to ensure the list of layer settings remain stable across versions and that the responsability of handling layer backward compatibility doesn't fall on Vulkan application developers as this could quickly become untrackable.**.
+
 ## Configuring Vulkan Layers using *Vulkan Configurator*
 
 Developers can configure layers through a graphical user interface. *Vulkan Configurator* allows full user control of Vulkan layers, including enabling or disabling specific layers, controlling layer order, changing layer settings, etc.
@@ -60,6 +62,8 @@ The settings and values available for each layer are listed in the layer manifes
 Applications may programmatically activate layers via the `vkCreateInstance()` entry point. This
 is done by setting `enabledLayerCount` and `ppEnabledLayerNames` in the `VkInstanceCreateInfo`
 structure.
+
+Layer settings may be configured using the `VK_EXT_layer_settings` extension by initializing the `VkLayerSettingsCreateInfoEXT` structure and chaining it to the `pNext` of `VkInstanceCreateInfo` when creating a Vulkan instance.
 
 ### Code example
 
